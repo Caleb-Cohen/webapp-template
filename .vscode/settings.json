@@ -53,5 +53,9 @@
     "**/node_modules": true,
     "**/.next": true,
     "**/dist": true
-  }
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "cSpell.words": ["cuid", "turbopack"]
 }
