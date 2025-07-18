@@ -14,5 +14,12 @@ services:
       - ***REMOVED***_data:/var/lib/***REMOVED***ql/data
     restart: unless-stopped
 
+  redis:
+    image: redis:7-alpine
+    container_name: webapp_template_redis
+    ports:
+      - '6379:6379'
+    restart: unless-stopped
+
 volumes:
   ***REMOVED***_data:

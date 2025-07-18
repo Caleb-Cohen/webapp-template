@@ -13,6 +13,7 @@ A production-ready Next.js 15 template with modern tooling and best practices.
 - **Husky** + **lint-staged** for commit hooks
 - **Turbopack** for fast development
 - **Prisma ORM** with PostgreSQL
+- **Redis** integration for caching and data store
 
 ## Quick Start
 
@@ -22,9 +23,10 @@ pnpm install
 
 # Setup environment
 cp .env.example .env
-# Edit .env with your database URL
+# Edit .env with your database and Redis URLs
 
 # Setup database
+pnpm docker:up
 pnpm db:generate
 pnpm db:push
 
@@ -68,6 +70,15 @@ pnpm db:migrate
 pnpm db:studio
 ```
 
+### Redis Management
+
+- Redis is included in `docker-compose.yml` and runs on `localhost:6379` by default.
+- The Redis connection string is set via `REDIS_URL` in your `.env` file:
+  ```
+  REDIS_URL="redis://localhost:6379"
+  ```
+- A health check API route is available at `/api/redis`.
+
 ### Git Hooks
 
 This project uses **Husky** and **lint-staged** to ensure code quality:
@@ -96,11 +107,11 @@ chore: update dependencies
 
 ### Option 1: Local PostgreSQL
 
-1. Install PostgreSQL locally
+1. Install PostgreSQL locally (or use Docker Compose)
 2. Create a database: `createdb webapp_template`
 3. Update `.env`:
    ```
-   DATABASE_URL="***REMOVED***ql://username:password@localhost:5432/webapp_template"
+   DATABASE_URL="***REMOVED***ql://***REMOVED***:***REMOVED***@localhost:5432/webapp_template"
    ```
 
 ### Option 2: Cloud Database (Recommended)
@@ -134,7 +145,8 @@ src/
 │   ├── organisms/         # Complex UI sections
 │   └── templates/         # Page layouts
 ├── lib/                   # Utilities and clients
-│   └── db.ts             # Database client
+│   ├── db.ts             # Database client
+│   └── redis.ts          # Redis client
 ├── styles/                # Global styles
 ├── types/                 # TypeScript definitions
 ├── hooks/                 # Custom React hooks
@@ -155,10 +167,12 @@ prisma/
 - **Git Hooks**: Husky + lint-staged
 - **Development**: Turbopack
 - **Database**: PostgreSQL + Prisma ORM
+- **Cache/Store**: Redis (ioredis)
 
 ## API Routes
 
 - `GET /api/hello` - Returns hello message and database status
+- `GET /api/redis` - Returns Redis health check
 
 ## License
 
