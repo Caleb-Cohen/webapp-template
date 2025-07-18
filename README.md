@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Webapp Template
 
-## Getting Started
+A production-ready Next.js 15 template with modern tooling and best practices.
 
-First, run the development server:
+## Features
+
+- **Next.js 15** with App Router
+- **React 19** with TypeScript
+- **Tailwind CSS** for styling
+- **Atomic Design** component structure
+- **ESLint 9** with strict rules
+- **Prettier** for code formatting
+- **Husky** + **lint-staged** for commit hooks
+- **Turbopack** for fast development
+
+## Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Install dependencies
+pnpm install
+
+# Start development server
 pnpm dev
-# or
-bun dev
+
+# Build for production
+pnpm build
+
+# Start production server
+pnpm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development Workflow
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Code Quality Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Run all checks
+pnpm check
 
-## Learn More
+# Individual checks
+pnpm lint        # ESLint
+pnpm typecheck   # TypeScript
+pnpm format      # Prettier formatting
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Git Hooks
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project uses **Husky** and **lint-staged** to ensure code quality:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Pre-commit**: Automatically runs ESLint and Prettier on staged files
+- **Commit-msg**: Validates commit message format
 
-## Deploy on Vercel
+### Commit Message Format
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Use conventional commit format:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+type(scope): description
+
+Examples:
+feat: add user authentication
+fix(auth): resolve login issue
+docs: update README
+style: format code
+refactor: improve component structure
+test: add unit tests
+chore: update dependencies
+```
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+├── components/
+│   ├── atoms/             # Basic building blocks
+│   ├── molecules/         # Simple combinations
+│   ├── organisms/         # Complex UI sections
+│   └── templates/         # Page layouts
+├── lib/                   # Utilities and clients
+├── styles/                # Global styles
+├── types/                 # TypeScript definitions
+├── hooks/                 # Custom React hooks
+├── constants/             # App constants
+└── utils/                 # Utility functions
+```
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript 5
+- **Styling**: Tailwind CSS 4
+- **Package Manager**: pnpm
+- **Linting**: ESLint 9 + Prettier
+- **Git Hooks**: Husky + lint-staged
+- **Development**: Turbopack
+
+## License
+
+MIT
