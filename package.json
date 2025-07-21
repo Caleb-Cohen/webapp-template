@@ -20,6 +20,9 @@
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f",
     "docker:reset": "docker-compose down -v && docker-compose up -d",
+    "docker:build": "docker build -t webapp-template .",
+    "docker:prod": "docker-compose -f docker-compose.prod.yml up -d",
+    "docker:prod:build": "docker-compose -f docker-compose.prod.yml up -d --build",
     "prepare": "husky"
   },
   "lint-staged": {

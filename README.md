@@ -14,6 +14,8 @@ A production-ready Next.js 15 template with modern tooling and best practices.
 - **Turbopack** for fast development
 - **Prisma ORM** with PostgreSQL
 - **Redis** integration for caching and data store
+- **GitHub Actions** for CI/CD
+- **Docker** for production deployment
 
 ## Quick Start
 
@@ -38,6 +40,9 @@ pnpm build
 
 # Start production server
 pnpm start
+
+# Or run with Docker
+pnpm docker:prod:build
 ```
 
 ## Development Workflow
@@ -78,6 +83,21 @@ pnpm db:studio
   REDIS_URL="redis://localhost:6379"
   ```
 - A health check API route is available at `/api/redis`.
+
+### Docker Management
+
+```bash
+# Development environment
+pnpm docker:up          # Start dev services (PostgreSQL, Redis)
+pnpm docker:down        # Stop dev services
+pnpm docker:logs        # View logs
+pnpm docker:reset       # Reset and restart services
+
+# Production environment
+pnpm docker:build       # Build production image
+pnpm docker:prod        # Run production stack
+pnpm docker:prod:build  # Build and run production stack
+```
 
 ### Git Hooks
 
@@ -168,6 +188,8 @@ prisma/
 - **Development**: Turbopack
 - **Database**: PostgreSQL + Prisma ORM
 - **Cache/Store**: Redis (ioredis)
+- **CI/CD**: GitHub Actions
+- **Deployment**: Docker + Docker Compose
 
 ## API Routes
 

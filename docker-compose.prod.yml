@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: webapp_template_app
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+    depends_on:
+      - ***REMOVED***
+      - redis
+    restart: unless-stopped
+
+  ***REMOVED***:
+    image: ***REMOVED***:15-alpine
+    container_name: webapp_template_***REMOVED***
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-webapp_template}
+      POSTGRES_USER: ${POSTGRES_USER:-***REMOVED***}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-***REMOVED***}
+    ports:
+      - '5432:5432'
+    volumes:
+      - ***REMOVED***_data:/var/lib/***REMOVED***ql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: webapp_template_redis
+    ports:
+      - '6379:6379'
+    restart: unless-stopped
+
+volumes:
+  ***REMOVED***_data:
