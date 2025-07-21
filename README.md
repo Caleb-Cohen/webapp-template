@@ -26,6 +26,7 @@ pnpm install
 # Setup environment
 cp .env.example .env
 # Edit .env with your database and Redis URLs
+# For Docker Compose, also set POSTGRES_PASSWORD to a secure value
 
 # Setup database
 pnpm docker:up
