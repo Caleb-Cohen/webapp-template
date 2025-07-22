@@ -1,0 +1,35 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "pnpm",
+    "turbopack",
+    "prisma",
+    "postgresql",
+    "ioredis",
+    "cuid",
+    "webapp",
+    "nextjs",
+    "tailwindcss",
+    "eslint",
+    "prettier",
+    "husky",
+    "lint-staged",
+    "vercel",
+    "railway",
+    "render",
+    "supabase",
+    "neon"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    "dist/**",
+    ".next/**",
+    "coverage/**",
+    "*.lock",
+    "*.log",
+    "prisma/migrations/**",
+    "**/*.min.js",
+    "**/*.min.css"
+  ]
+}
