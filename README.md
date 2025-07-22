@@ -132,7 +132,7 @@ chore: update dependencies
 2. Create a database: `createdb webapp_template`
 3. Update `.env`:
    ```
-   DATABASE_URL="***REMOVED***ql://***REMOVED***:***REMOVED***@localhost:5432/webapp_template"
+   DATABASE_URL="postgresql://postgres:postgres@localhost:5432/webapp_template"
    ```
 
 ### Option 2: Cloud Database (Recommended)

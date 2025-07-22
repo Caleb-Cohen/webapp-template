@@ -1,17 +1,17 @@
 version: '3.8'
 
 services:
-  ***REMOVED***:
-    image: ***REMOVED***:15-alpine
-    container_name: webapp_template_***REMOVED***
+  postgres:
+    image: postgres:15-alpine
+    container_name: webapp_template_postgres
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-webapp_template}
-      POSTGRES_USER: ${POSTGRES_USER:-***REMOVED***}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-***REMOVED***}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
     ports:
       - '5432:5432'
     volumes:
-      - ***REMOVED***_data:/var/lib/***REMOVED***ql/data
+      - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
 
   redis:
@@ -22,4 +22,4 @@ services:
     restart: unless-stopped
 
 volumes:
-  ***REMOVED***_data:
+  postgres_data:
