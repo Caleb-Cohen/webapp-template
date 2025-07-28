@@ -25,6 +25,8 @@ model User {
   id       String @id @default(cuid())
   googleId String @unique
   name     String
+
+  sessions Session[]
 }
 
 model Session {
@@ -33,6 +35,8 @@ model Session {
   createdAt  DateTime
   expiresAt  DateTime
   userId     String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
 }

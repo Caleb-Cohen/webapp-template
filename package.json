@@ -23,7 +23,12 @@
     "docker:build": "docker build -t webapp-template .",
     "docker:prod": "docker-compose -f docker-compose.prod.yml up -d",
     "docker:prod:build": "docker-compose -f docker-compose.prod.yml up -d --build",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "jest",
+    "test:unit": "jest --testMatch='<rootDir>/src/**/*.{test,spec}.{ts,tsx}'",
+    "test:integration": "jest --testMatch='<rootDir>/tests/**/*.{test,spec}.{ts,tsx}'",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -46,6 +51,10 @@
     "@eslint/eslintrc": "^3",
     "@next/eslint-plugin-next": "15.4.1",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -54,10 +63,13 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "husky": "^9.1.7",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
     "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
     "prisma": "^6.12.0",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
