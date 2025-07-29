@@ -1,5 +1,6 @@
 import { db } from '@/lib/db';
 import { Session, SessionWithToken } from '@/types/auth';
+import { createHash } from 'crypto';
 import { cookies } from 'next/headers';
 
 export function generateSecureRandomString(): string {
@@ -26,7 +27,7 @@ export async function createSession(userId: string): Promise<SessionWithToken> {
 
   const id = generateSecureRandomString();
   const secret = generateSecureRandomString();
-  const secretHash = await hashSecret(secret);
+  const secretHash = hashSecret(secret);
 
   const token = id + '.' + secret;
 
@@ -67,7 +68,7 @@ export async function validateSessionToken(
     return null;
   }
 
-  const tokenSecretHash = await hashSecret(sessionSecret);
+  const tokenSecretHash = hashSecret(sessionSecret);
   const validSecret = constantTimeEqual(tokenSecretHash, session.secretHash);
   if (!validSecret) {
     return null;
@@ -84,7 +85,7 @@ export async function setSessionTokenCookie(
     const cookieStore = await cookies();
 
     cookieStore.set('session_token', sessionToken, {
-      httpOnly: false, // Temporarily false for debugging
+      httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
@@ -143,10 +144,10 @@ export async function cleanupExpiredSessions(): Promise<void> {
   });
 }
 
-export async function hashSecret(secret: string): Promise<Uint8Array> {
-  const secretBytes = new TextEncoder().encode(secret);
-  const secretHashBuffer = await crypto.subtle.digest('SHA-256', secretBytes);
-  return new Uint8Array(secretHashBuffer);
+export function hashSecret(secret: string): Uint8Array {
+  const hash = createHash('sha256');
+  hash.update(secret, 'utf8');
+  return new Uint8Array(hash.digest());
 }
 
 export function constantTimeEqual(a: Uint8Array, b: Uint8Array): boolean {
