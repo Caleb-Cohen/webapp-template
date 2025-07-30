@@ -13,6 +13,28 @@ const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
 
   {
+    ignores: [
+      'node_modules/',
+      '.pnp.*',
+      '.yarn/',
+      '.next/',
+      'out/',
+      'dist/',
+      'build/',
+      'coverage/',
+      'next-env.d.ts',
+      '*.tsbuildinfo',
+      '.env*',
+      '.vercel/',
+      'npm-debug.log*',
+      'yarn-debug.log*',
+      'yarn-error.log*',
+      '.pnpm-debug.log*',
+      '.DS_Store',
+    ],
+  },
+
+  {
     files: ['**/*.{js,jsx,ts,tsx}'],
     rules: {
       // TypeScript specific rules
