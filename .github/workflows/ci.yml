@@ -9,7 +9,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    environment: CI
 
     services:
       postgres:
@@ -69,8 +68,12 @@ jobs:
       - name: Debug Environment Variables
         run: |
           echo "--- Environment Variables ---"
+          echo "GITHUB_ENV: $GITHUB_ENV"
+          echo "Environment name: ${{ env.ENVIRONMENT_NAME }}"
           printenv | grep DATABASE_URL || echo "DATABASE_URL not found"
           printenv | grep REDIS_URL || echo "REDIS_URL not found"
+          echo "All env vars:"
+          printenv | sort
           echo "-----------------------------"
 
       - name: Generate Prisma client
