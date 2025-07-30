@@ -7,6 +7,7 @@ import {
   hashSecret,
   setSessionTokenCookie,
   validateSessionToken,
+  verifyRequestOrigin,
 } from '@/lib/session';
 import { cookies } from 'next/headers';
 
@@ -235,6 +236,49 @@ describe('Session Management', () => {
       expect(parsed).toHaveProperty('createdAt');
       expect(typeof parsed.id).toBe('string');
       expect(typeof parsed.createdAt).toBe('number');
+    });
+
+    describe('verifyRequestOrigin', () => {
+      const withEnv = (
+        nodeEnv: string,
+        allowedOrigins?: string,
+        callback: () => void,
+      ) => {
+        const originalEnv = process.env.NODE_ENV;
+        const originalOrigins = process.env.ALLOWED_ORIGINS;
+
+        (process.env as any).NODE_ENV = nodeEnv;
+        if (allowedOrigins) {
+          (process.env as any).ALLOWED_ORIGINS = allowedOrigins;
+        }
+
+        try {
+          callback();
+        } finally {
+          (process.env as any).NODE_ENV = originalEnv;
+          (process.env as any).ALLOWED_ORIGINS = originalOrigins;
+        }
+      };
+
+      test('returns true when NODE_ENV is not production', () => {
+        withEnv('development', undefined, () => {
+          expect(verifyRequestOrigin('GET', 'http://localhost')).toBe(true);
+          expect(verifyRequestOrigin('HEAD', 'http://localhost')).toBe(true);
+        });
+      });
+
+      test('returns true when method is GET or HEAD', () => {
+        withEnv('production', undefined, () => {
+          expect(verifyRequestOrigin('GET', 'http://localhost')).toBe(true);
+          expect(verifyRequestOrigin('HEAD', 'http://localhost')).toBe(true);
+        });
+      });
+
+      test('returns true for POST with allowed origin', () => {
+        withEnv('production', 'http://localhost', () => {
+          expect(verifyRequestOrigin('POST', 'http://localhost')).toBe(true);
+        });
+      });
     });
   });
 });
