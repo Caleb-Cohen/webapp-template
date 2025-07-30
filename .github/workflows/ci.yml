@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: CI
 
     services:
       postgres:
@@ -89,6 +90,7 @@ jobs:
   security:
     runs-on: ubuntu-latest
     needs: test
+    environment: CI
 
     steps:
       - name: Checkout code
