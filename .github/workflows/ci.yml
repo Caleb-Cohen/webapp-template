@@ -6,6 +6,14 @@ on:
   pull_request:
     branches: [main, develop]
 
+env:
+  DATABASE_URL: ${{ vars.DATABASE_URL }}
+  REDIS_URL: ${{ vars.REDIS_URL }}
+  POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+  POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+  POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+  NODE_ENV: ${{ vars.NODE_ENV }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -66,16 +74,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Debug Environment Variables
+      - name: Debug CI Environment Variables
         run: |
-          echo "--- Environment Variables ---"
-          echo "GITHUB_ENV: $GITHUB_ENV"
-          echo "Environment name: ${{ env.ENVIRONMENT_NAME }}"
-          printenv | grep DATABASE_URL || echo "DATABASE_URL not found"
-          printenv | grep REDIS_URL || echo "REDIS_URL not found"
-          echo "All env vars:"
-          printenv | sort
-          echo "-----------------------------"
+        echo "DATABASE_URL: $DATABASE_URL"
+        echo "REDIS_URL: $REDIS_URL"
+        echo "POSTGRES_USER: $POSTGRES_USER"
+        echo "POSTGRES_PASSWORD: $POSTGRES_PASSWORD"
+        echo "POSTGRES_DB: $POSTGRES_DB"
+        echo "NODE_ENV: $NODE_ENV"
 
       - name: Generate Prisma client
         run: pnpm db:generate
