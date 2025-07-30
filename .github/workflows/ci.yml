@@ -66,6 +66,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Debug Environment Variables
+        run: |
+          echo "--- Environment Variables ---"
+          printenv | grep DATABASE_URL || echo "DATABASE_URL not found"
+          printenv | grep REDIS_URL || echo "REDIS_URL not found"
+          echo "-----------------------------"
+
       - name: Generate Prisma client
         run: pnpm db:generate
 
