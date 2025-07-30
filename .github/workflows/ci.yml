@@ -9,10 +9,7 @@ on:
 env:
   DATABASE_URL: ${{ vars.DATABASE_URL }}
   REDIS_URL: ${{ vars.REDIS_URL }}
-  POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-  POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
-  POSTGRES_DB: ${{ vars.POSTGRES_DB }}
-  NODE_ENV: ${{ vars.NODE_ENV }}
+  NODE_ENV: test
 
 jobs:
   test:
@@ -24,8 +21,8 @@ jobs:
         image: postgres:15-alpine
         env:
           POSTGRES_DB: webapp_template_test
-          POSTGRES_USER: testpass
-          POSTGRES_PASSWORD: testpass
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -34,15 +31,15 @@ jobs:
         ports:
           - 5432:5432
 
-      redis:
-        image: redis:7-alpine
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 6379:6379
+        redis:
+          image: redis:7-alpine
+          options: >-
+            --health-cmd "redis-cli ping"
+            --health-interval 10s
+            --health-timeout 5s
+            --health-retries 5
+          ports:
+            - 6379:6379
 
     steps:
       - name: Checkout code
