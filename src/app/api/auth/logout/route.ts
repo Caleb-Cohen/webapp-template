@@ -11,7 +11,6 @@ export async function GET() {
     await deleteSession(sessionId);
   }
 
-  // Clear the session cookie
   cookieStore.set('session_token', '', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -20,6 +19,5 @@ export async function GET() {
     expires: new Date(0),
   });
 
-  // Redirect to home page
   redirect('/');
 }

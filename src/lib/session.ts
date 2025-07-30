@@ -24,7 +24,7 @@ export function generateSecureRandomString(): string {
 export async function createSession(userId: string): Promise<SessionWithToken> {
   const now = new Date();
   const expiresAt = new Date(now);
-  expiresAt.setDate(expiresAt.getDate() + 1); // 1 day
+  expiresAt.setDate(expiresAt.getDate() + 1);
 
   const id = generateSecureRandomString();
   const secret = generateSecureRandomString();
