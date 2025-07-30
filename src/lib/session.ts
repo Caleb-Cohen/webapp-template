@@ -1,5 +1,4 @@
 import { db } from '@/lib/db';
-import { logger } from '@/lib/logger';
 import { Session, SessionWithToken } from '@/types/auth';
 import { createHash } from 'crypto';
 import { cookies } from 'next/headers';
@@ -94,10 +93,7 @@ export async function setSessionTokenCookie(
     });
 
     return true;
-  } catch (error) {
-    logger.error('Error setting session token cookie', {
-      message: error instanceof Error ? error.message : 'Unknown error',
-    });
+  } catch (_error) {
     return false;
   }
 }

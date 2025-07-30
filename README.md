@@ -185,7 +185,6 @@ src/
 │   ├── redis.ts           # Redis client
 │   ├── session.ts         # Session management
 │   ├── user.ts            # User management
-│   ├── logger.ts          # Logging utilities
 │   ├── user.test.ts       # User unit tests
 │   └── session.test.ts    # Session unit tests
 ├── types/                 # TypeScript definitions

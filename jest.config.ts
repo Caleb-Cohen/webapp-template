@@ -11,6 +11,7 @@ const config: Config = {
   collectCoverage: true,
   collectCoverageFrom: [
     'src/lib/**/*.{ts,tsx}',
+    'src/app/**/*.{ts,tsx}',
     '!src/app/api/**/*.{ts,tsx}', // Exclude API routes for now
     '!src/**/*.d.ts',
   ],
