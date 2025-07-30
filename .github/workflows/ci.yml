@@ -71,15 +71,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Debug CI Environment Variables
-        run: |
-          echo "DATABASE_URL: $DATABASE_URL"
-          echo "REDIS_URL: $REDIS_URL"
-          echo "POSTGRES_USER: $POSTGRES_USER"
-          echo "POSTGRES_PASSWORD: $POSTGRES_PASSWORD"
-          echo "POSTGRES_DB: $POSTGRES_DB"
-          echo "NODE_ENV: $NODE_ENV"
-
       - name: Generate Prisma client
         run: pnpm db:generate
 
