@@ -160,19 +160,45 @@ Use a cloud PostgreSQL service like:
 ```
 src/
 ├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   │   ├── auth/          # Authentication endpoints
+│   │   │   ├── cleanup/   # Session cleanup
+│   │   │   ├── google/    # Google OAuth
+│   │   │   └── logout/    # Logout endpoint
+│   │   ├── hello/         # Example API route
+│   │   └── redis/         # Redis test endpoint
+│   ├── login/             # Login page
+│   ├── profile/           # User profile page
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Home page
+│   └── globals.css        # Global styles
 ├── components/
 │   ├── atoms/             # Basic building blocks
+│   │   └── Button.tsx
 │   ├── molecules/         # Simple combinations
 │   ├── organisms/         # Complex UI sections
+│   │   └── SampleButton.tsx
 │   └── templates/         # Page layouts
-├── lib/                   # Utilities and clients
-│   ├── db.ts             # Database client
-│   └── redis.ts          # Redis client
-├── styles/                # Global styles
+├── lib/                   # Core business logic and utilities
+│   ├── auth.ts            # Authentication utilities
+│   ├── db.ts              # Database client (Prisma)
+│   ├── redis.ts           # Redis client
+│   ├── session.ts         # Session management
+│   ├── user.ts            # User management
+│   ├── user.test.ts       # User unit tests
+│   └── session.test.ts    # Session unit tests
 ├── types/                 # TypeScript definitions
+│   └── auth.ts            # Authentication types
 ├── hooks/                 # Custom React hooks
 ├── constants/             # App constants
-└── utils/                 # Utility functions
+├── utils/                 # Utility functions
+└── styles/                # Additional styles
+
+tests/
+└── integration/           # Integration tests
+    ├── session.test.ts    # Session integration tests
+    └── user.test.ts       # User integration tests
+
 prisma/
 ├── schema.prisma          # Database schema
 └── migrations/            # Database migrations
