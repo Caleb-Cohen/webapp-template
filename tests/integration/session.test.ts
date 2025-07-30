@@ -24,7 +24,7 @@ describe('Session Integration Tests', () => {
     const googleId = `test_google_${Date.now()}_${Math.random()}`;
     const user = await createUser(googleId, 'Jane Smith');
     const session = await createSession(user.id);
-    const tamperedToken = session.token.replace(session.token[0], 'x');
+    const tamperedToken = session.token.slice(0, -1) + 'Z';
     const result = await validateSessionToken(tamperedToken);
     expect(result).toBeNull();
   });

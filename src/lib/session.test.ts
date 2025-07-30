@@ -241,8 +241,8 @@ describe('Session Management', () => {
     describe('verifyRequestOrigin', () => {
       const withEnv = (
         nodeEnv: string,
-        allowedOrigins?: string,
         callback: () => void,
+        allowedOrigins?: string,
       ) => {
         const originalEnv = process.env.NODE_ENV;
         const originalOrigins = process.env.ALLOWED_ORIGINS;
@@ -261,23 +261,27 @@ describe('Session Management', () => {
       };
 
       test('returns true when NODE_ENV is not production', () => {
-        withEnv('development', undefined, () => {
+        withEnv('development', () => {
           expect(verifyRequestOrigin('GET', 'http://localhost')).toBe(true);
           expect(verifyRequestOrigin('HEAD', 'http://localhost')).toBe(true);
         });
       });
 
       test('returns true when method is GET or HEAD', () => {
-        withEnv('production', undefined, () => {
+        withEnv('production', () => {
           expect(verifyRequestOrigin('GET', 'http://localhost')).toBe(true);
           expect(verifyRequestOrigin('HEAD', 'http://localhost')).toBe(true);
         });
       });
 
       test('returns true for POST with allowed origin', () => {
-        withEnv('production', 'http://localhost', () => {
-          expect(verifyRequestOrigin('POST', 'http://localhost')).toBe(true);
-        });
+        withEnv(
+          'production',
+          () => {
+            expect(verifyRequestOrigin('POST', 'http://localhost')).toBe(true);
+          },
+          'http://localhost',
+        );
       });
     });
   });
