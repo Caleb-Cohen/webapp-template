@@ -167,7 +167,7 @@ export function constantTimeEqual(a: Uint8Array, b: Uint8Array): boolean {
 export function encodeSessionPublicJSON(session: Session): string {
   const json = JSON.stringify({
     id: session.id,
-    created_at: Math.floor(session.createdAt.getTime() / 1000),
+    createdAt: Math.floor(session.createdAt.getTime() / 1000),
   });
   return json;
 }

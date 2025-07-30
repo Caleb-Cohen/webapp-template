@@ -2,6 +2,7 @@ import { db } from '@/lib/db';
 import {
   cleanupExpiredSessions,
   createSession,
+  encodeSessionPublicJSON,
   generateSecureRandomString,
   hashSecret,
   setSessionTokenCookie,
@@ -223,6 +224,17 @@ describe('Session Management', () => {
       );
 
       expect(result).toBe(false);
+    });
+
+    test('encodeSessionPublicJSON formats session correctly', async () => {
+      const session = await createSession('test-user-id');
+
+      const encoded = encodeSessionPublicJSON(session);
+      const parsed = JSON.parse(encoded);
+      expect(parsed).toHaveProperty('id');
+      expect(parsed).toHaveProperty('createdAt');
+      expect(typeof parsed.id).toBe('string');
+      expect(typeof parsed.createdAt).toBe('number');
     });
   });
 });
