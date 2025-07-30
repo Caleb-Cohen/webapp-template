@@ -68,13 +68,12 @@ jobs:
 
       - name: Generate Prisma client
         run: pnpm db:generate
-        env:
-          DATABASE_URL: postgresql://testpass:testpass@localhost:5432/webapp_template_test
 
       - name: Run database migrations
         run: pnpm db:push
-        env:
-          DATABASE_URL: postgresql://testpass:testpass@localhost:5432/webapp_template_test
+
+      - name: Run tests
+        run: pnpm test
 
       - name: Run linting
         run: pnpm lint
@@ -87,9 +86,6 @@ jobs:
 
       - name: Build application
         run: pnpm build
-        env:
-          DATABASE_URL: postgresql://testpass:testpass@localhost:5432/webapp_template_test
-          REDIS_URL: redis://localhost:6379
 
   security:
     runs-on: ubuntu-latest
