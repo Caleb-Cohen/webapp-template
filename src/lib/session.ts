@@ -179,7 +179,11 @@ export function verifyRequestOrigin(
     return true;
   }
 
-  const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [];
+  if (!process.env.ALLOWED_ORIGINS) {
+    return false;
+  }
+
+  const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',');
 
   return allowedOrigins.includes(originHeader);
 }
