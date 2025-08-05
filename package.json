@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack | pino-pretty",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -44,6 +44,8 @@
     "arctic": "^3.7.0",
     "ioredis": "^5.6.1",
     "next": "15.4.1",
+    "pino": "^9.7.0",
+    "pino-pretty": "^13.1.1",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
