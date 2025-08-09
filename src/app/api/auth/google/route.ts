@@ -1,11 +1,11 @@
-import { google } from '@/lib/auth';
+import { getGoogleClient } from '@/lib/auth';
 import { generateCodeVerifier, generateState } from 'arctic';
 import { cookies } from 'next/headers';
 
 export async function GET(): Promise<Response> {
   const state = generateState();
   const codeVerifier = generateCodeVerifier();
-  const url = google.createAuthorizationURL(state, codeVerifier, [
+  const url = getGoogleClient().createAuthorizationURL(state, codeVerifier, [
     'openid',
     'profile',
   ]);

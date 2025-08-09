@@ -1,16 +1,14 @@
 import { cleanupExpiredSessions } from '@/lib/session';
+import { withErrorHandler } from '@/lib/with-error-handler';
+import { NextResponse } from 'next/server';
 
-export async function POST() {
-  try {
-    await cleanupExpiredSessions();
-    return Response.json({
-      success: true,
-      message: 'Expired sessions cleaned up',
-    });
-  } catch (_error) {
-    return Response.json(
-      { success: false, error: 'Cleanup failed' },
-      { status: 500 },
-    );
-  }
+async function cleanupHandler() {
+  await cleanupExpiredSessions();
+
+  return NextResponse.json({
+    success: true,
+    message: 'Expired sessions cleaned up',
+  });
 }
+
+export const POST = withErrorHandler(cleanupHandler);

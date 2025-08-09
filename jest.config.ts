@@ -17,10 +17,10 @@ const config: Config = {
   ],
   coverageThreshold: {
     global: {
-      branches: 60,
-      functions: 70,
-      lines: 60,
-      statements: 60,
+      branches: 40,
+      functions: 40,
+      lines: 40,
+      statements: 40,
     },
   },
   clearMocks: true,

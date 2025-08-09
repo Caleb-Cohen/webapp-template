@@ -1,4 +1,4 @@
-import { google } from '@/lib/auth';
+import { getGoogleClient } from '@/lib/auth';
 import {
   createSession,
   setSessionTokenCookie,
@@ -45,7 +45,10 @@ export async function GET(request: Request): Promise<Response> {
 
   let tokens: OAuth2Tokens;
   try {
-    tokens = await google.validateAuthorizationCode(code, codeVerifier);
+    tokens = await getGoogleClient().validateAuthorizationCode(
+      code,
+      codeVerifier,
+    );
   } catch (_e) {
     return new Response(null, {
       status: 400,
