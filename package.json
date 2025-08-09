@@ -24,11 +24,16 @@
     "docker:prod": "docker-compose -f docker-compose.prod.yml up -d",
     "docker:prod:build": "docker-compose -f docker-compose.prod.yml up -d --build",
     "prepare": "husky",
-    "test": "jest",
-    "test:unit": "jest --testMatch='<rootDir>/src/**/*.{test,spec}.{ts,tsx}'",
-    "test:integration": "jest --testMatch='<rootDir>/tests/**/*.{test,spec}.{ts,tsx}'",
+    "test": "pnpm test:unit && pnpm test:integration",
+    "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:unit": "jest --testMatch \"<rootDir>/src/**/*.(test|spec).(ts|tsx)\"",
+    "test:integration": "jest --coverage=false --testEnvironment=node --testMatch \"<rootDir>/tests/integration/**/*.(test|spec).(ts|tsx)\"",
+    "e2e:install": "pnpm exec playwright install --with-deps",
+    "e2e": "pnpm exec playwright test",
+    "e2e:headed": "pnpm exec playwright test --headed --project=chromium",
+    "e2e:ui": "pnpm exec playwright test --ui",
+    "ci": "pnpm check && pnpm test && pnpm e2e"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -49,6 +54,7 @@
     "arctic": "^3.7.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^17.2.1",
     "ioredis": "^5.6.1",
     "lucide-react": "^0.539.0",
     "next": "15.4.1",
@@ -64,6 +70,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@next/eslint-plugin-next": "15.4.1",
+    "@playwright/test": "^1.54.2",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",

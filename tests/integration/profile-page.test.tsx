@@ -1,3 +1,5 @@
+/** @jest-environment jsdom */
+
 import { createSession } from '@/lib/session';
 import { createUser } from '@/lib/user';
 import { render, screen } from '@testing-library/react';
