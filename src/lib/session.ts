@@ -131,16 +131,17 @@ export async function deleteSession(sessionId: string): Promise<void> {
   });
 }
 
-export async function cleanupExpiredSessions(): Promise<void> {
-  const now = new Date();
-
+export async function cleanupExpiredSessions(): Promise<{
+  success: boolean;
+}> {
   await db.session.deleteMany({
     where: {
       expiresAt: {
-        lt: now,
+        lt: new Date(),
       },
     },
   });
+  return { success: true };
 }
 
 export function hashSecret(secret: string): Uint8Array {
