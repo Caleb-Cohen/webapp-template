@@ -7,8 +7,16 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { validateSessionToken } from '@/lib/session';
+import { cookies } from 'next/headers';
 
-export default function Home() {
+export default async function Home() {
+  const cookieStore = await cookies();
+  const sessionToken = cookieStore.get('session_token')?.value;
+  const isAuthenticated = sessionToken
+    ? await validateSessionToken(sessionToken)
+    : false;
+
   return (
     <main className='min-h-dvh flex items-center justify-center p-6'>
       <Card className='w-full max-w-xl'>
@@ -25,12 +33,22 @@ export default function Home() {
           </p>
         </CardContent>
         <CardFooter className='gap-2'>
-          <Button asChild>
-            <a href='/login'>Sign In</a>
-          </Button>
-          <Button variant='secondary' asChild>
-            <a href='/profile'>View Profile</a>
-          </Button>
+          {isAuthenticated ? (
+            <>
+              <Button variant='destructive' asChild>
+                <a href='/api/auth/logout'>Sign Out</a>
+              </Button>
+              <Button variant='secondary' asChild>
+                <a href='/profile'>View Profile</a>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button asChild>
+                <a href='/login'>Sign In</a>
+              </Button>
+            </>
+          )}
         </CardFooter>
       </Card>
     </main>
