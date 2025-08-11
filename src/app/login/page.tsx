@@ -1,8 +1,11 @@
+import { LoginForm } from '@/components/organisms/login-form';
+
 export default function Page() {
   return (
-    <>
-      <h1>Sign in</h1>
-      <a href='/api/auth/google'>Sign in with Google</a>
-    </>
+    <div className='flex min-h-svh w-full items-center justify-center p-6 md:p-10'>
+      <div className='w-full max-w-sm'>
+        <LoginForm />
+      </div>
+    </div>
   );
 }

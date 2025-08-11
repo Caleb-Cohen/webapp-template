@@ -13,6 +13,28 @@ const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
 
   {
+    ignores: [
+      'node_modules/',
+      '.pnp.*',
+      '.yarn/',
+      '.next/',
+      'out/',
+      'dist/',
+      'build/',
+      'coverage/',
+      'next-env.d.ts',
+      '*.tsbuildinfo',
+      '.env*',
+      '.vercel/',
+      'npm-debug.log*',
+      'yarn-debug.log*',
+      'yarn-error.log*',
+      '.pnpm-debug.log*',
+      '.DS_Store',
+    ],
+  },
+
+  {
     files: ['**/*.{js,jsx,ts,tsx}'],
     rules: {
       // TypeScript specific rules
@@ -93,20 +115,11 @@ const eslintConfig = [
       'comma-dangle': ['error', 'always-multiline'],
       'comma-spacing': ['error', { before: false, after: true }],
       'comma-style': ['error', 'last'],
-      indent: ['error', 2, { SwitchCase: 1 }],
       'key-spacing': ['error', { beforeColon: false, afterColon: true }],
       'keyword-spacing': ['error', { before: true, after: true }],
       'object-curly-spacing': ['error', 'always'],
       'semi-spacing': ['error', { before: false, after: true }],
       'space-before-blocks': 'error',
-      'space-before-function-paren': [
-        'error',
-        {
-          anonymous: 'never',
-          named: 'never',
-          asyncArrow: 'always',
-        },
-      ],
       'space-in-parens': ['error', 'never'],
       'space-infix-ops': 'error',
       'space-unary-ops': 'error',

@@ -1,14 +1,15 @@
+import { ApiError } from '@/lib/error-handler';
 import { redis } from '@/lib/redis';
+import { withErrorHandler } from '@/lib/with-error-handler';
 import { NextResponse } from 'next/server';
 
-export async function GET() {
-  try {
-    const pong = await redis.ping();
-    return NextResponse.json({ status: 'ok', pong });
-  } catch {
-    return NextResponse.json(
-      { status: 'error', message: 'Redis connection failed' },
-      { status: 500 },
-    );
+async function redisHandler() {
+  const pong = await redis.ping();
+
+  if (!pong) {
+    throw ApiError.serviceUnavailable('Redis service is not available');
   }
+  return NextResponse.json({ status: 'ok', pong });
 }
+
+export const GET = withErrorHandler(redisHandler);
